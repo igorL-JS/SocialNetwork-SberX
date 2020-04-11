@@ -1,0 +1,41 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    background-color: #F5F5F5;
+}
+
+.dialogItem {
+    padding: 20px;
+}
+
+.dialogItem .activeLink{
+    color: lawngreen;
+}
+
+.dialog a {
+    text-decoration: none;
+    color: forestgreen;
+    font: 15pt serif;
+
+}
+
+.messages {
+    padding: 15px;
+    text-align: center;
+    font: 15pt serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+.nav {
+    grid-area: nav;
+    background-color: #F5F5F5;
+    padding: 30px;
+}
+
+.item a {
+    /*margin-left: 15px;*/
+    color: forestgreen;
+    font: 18pt serif;
+    text-decoration: none;
+
+}
+
+.item .activeLink {
+    color: lawngreen;
+    font-weight: bold
+}
