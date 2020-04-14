@@ -1,12 +1,13 @@
 import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import TextArea from "./Text_area/TextArea";
+import TextAreaContainer from "./TextAreaContainer";
 
 const MyPosts = (props) => {
-
-    let PostElement = props.post.map( (m) => {
-        return (<Post messages={m.messages} likecount={m.likecount}/>)
+    let state = props.store.getState().profilePage;
+    debugger;
+    let PostElement = state.Posts.map( (m) => {
+        return (<Post  dispatch = {props.dispatch} messages={m.messages} likecount = {m.likecount}/>)
     }
     );
     // MyPosts принимает через props массив объектов Posts (Из state.js), перебирает массив с помощью .map
@@ -15,7 +16,7 @@ const MyPosts = (props) => {
     return (
         <div className={s.posts}>
             <div className={s.item}> My Posts</div>
-            <TextArea addpost={props.addpost} posttext={props.posttext} dispatch={props.dispatch}/>
+            <TextAreaContainer store = {props.store} posttext = {state.newPostText} />
             {PostElement}
         </div>
     );

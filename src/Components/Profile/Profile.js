@@ -11,7 +11,7 @@ const Profile = (props) => {
 
             <img src="/shapka.jpg" width="1000" heigth="40"/>
             <ProfileInfo/>
-            <MyPosts post={props.post} posttext={props.posttext} dispatch={props.dispatch} />
+            <MyPosts store = {props.store} dispatch={props.dispatch} />
         </div>
     );
 }

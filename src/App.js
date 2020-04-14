@@ -3,12 +3,11 @@ import './App.css';
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News"
 import Settings from "./Components/Settings/Settings";
-import {upDateMessage, upDateNewPostText} from "./redux/state";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 const App = (props) => {
@@ -18,21 +17,18 @@ debugger;
             <Header/>
             <Navbar/>
             <Route exact path="/" render={() => (
-                <Profile post={props.state.profilePage.Posts}
+                <Profile store = {props.store}
                          dispatch={props.dispatch}
-                         posttext={props.state.profilePage.newPostText}
                 />)}/>
 
             <Route path="/profile" render={() => (
-                <Profile post={props.state.profilePage.Posts}
+                <Profile store = {props.store}
                          dispatch={props.dispatch}
-                         posttext={props.state.profilePage.newPostText}
-                 />)}/>
+                />)}/>
 
-            <Route path="/dialogs" render={() => (<Dialogs dialog={props.state.dialogsPage.DialogData}
-                                                           messages={props.state.dialogsPage.MessageData}
+            <Route path="/dialogs" render={() => (<DialogsContainer store = {props.store}
                                                                dispatch={props.dispatch}
-                                                           messagetext={props.state.dialogsPage.newMessageText}/>)}/>
+                                                           />)}/>
 
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>

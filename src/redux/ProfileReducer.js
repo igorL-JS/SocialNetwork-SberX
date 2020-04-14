@@ -1,10 +1,11 @@
 const UP_DATE_NEW_POST_TEXT = "Up-Date-New-Post-Text";
 const ADD_POSTS = "Add-Posts";
+const ADD_LIKE = "Add-Like";
 
 let initialState = {
     Posts: [
-        {id: 1, messages: "Hi, everyone! I use SberX", likecount: 30},
-        {id: 2, messages: "Hi, that's my first post", likecount: 24},
+        {id: 0, messages: "Hi, everyone! I use SberX", likecount: 30},
+        {id: 1, messages: "Hi, that's my first post", likecount: 24},
     ],
     newPostText: "What's new ?",
 };
@@ -13,7 +14,7 @@ const profileReducer = (state=initialState,action) => {
         switch (action.type) {
         case ADD_POSTS: {
             let newPostMessage = {
-                id: 5,
+                id: 3,
                 messages: state.newPostText,
                 likecount: 0,
             };
@@ -23,7 +24,6 @@ const profileReducer = (state=initialState,action) => {
         case UP_DATE_NEW_POST_TEXT: {
             state.newPostText = action.newText;
         }
-
         default : return state
     }
 };
@@ -40,6 +40,7 @@ export const upDateNewPostTextActionCreator = (text) => {
 export const addPostsActionCreator = () => {
     return {type: ADD_POSTS}
 };
+
 
 
 export default profileReducer;

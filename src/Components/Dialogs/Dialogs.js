@@ -1,7 +1,7 @@
 import React from "react";
 import p from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-import {addMessageActionCreator, upDateMessageActionCreator} from "../../redux/DialogsReducer";
+import DialogsContainer from "./DialogsContainer";
 
 const DialogItem = (props) => {
     let path = "/dialogs/" + props.id;
@@ -20,7 +20,6 @@ const Message = (props) => {
 };
 
 const Dialogs = (props) => {
-
     let DialogsElement = props.dialog.map((dialog) => {
             return (<DialogItem name={dialog.name} id={dialog.id}/>)
         }
@@ -28,18 +27,18 @@ const Dialogs = (props) => {
 
 
     let MessageElement = props.messages.map((m) => {
+        debugger;
             return (<Message message={m.message}/>)
         }
     );
 
     let addMessage = () => {
-        props.dispatch(addMessageActionCreator());
-        props.dispatch(upDateMessageActionCreator(""));
+        props.addmessage();
     };
 
     let onChangeMessage = (e) => {
         let text = e.target.value;
-        props.dispatch(upDateMessageActionCreator(text));
+        props.onchangemessage(text);
     };
 
     return (
