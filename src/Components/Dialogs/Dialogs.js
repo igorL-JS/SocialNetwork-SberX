@@ -1,7 +1,7 @@
 import React from "react";
 import p from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-import DialogsContainer from "./DialogsContainer";
+import DialogsContainer from "./DialogsContainer"
 
 const DialogItem = (props) => {
     let path = "/dialogs/" + props.id;
@@ -12,7 +12,6 @@ const DialogItem = (props) => {
     );
 };
 
-
 const Message = (props) => {
     return (
         <div className={p.message}> {props.message}</div>
@@ -20,20 +19,21 @@ const Message = (props) => {
 };
 
 const Dialogs = (props) => {
+    debugger;
+
     let DialogsElement = props.dialog.map((dialog) => {
             return (<DialogItem name={dialog.name} id={dialog.id}/>)
         }
     );
 
-
     let MessageElement = props.messages.map((m) => {
-        debugger;
             return (<Message message={m.message}/>)
         }
     );
 
     let addMessage = () => {
         props.addmessage();
+
     };
 
     let onChangeMessage = (e) => {
@@ -44,7 +44,6 @@ const Dialogs = (props) => {
     return (
         <div>
             <img src="/shapka.jpg" width="1000" heigth="40"/>
-
 
             <div className={p.dialogs}>
                 <div className={p.dialogItem}>

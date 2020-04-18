@@ -1,23 +1,41 @@
 import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import TextAreaContainer from "./TextAreaContainer";
+import MyPostsContainer from "./MyPostsContainer";
 
 const MyPosts = (props) => {
-    let state = props.store.getState().profilePage;
-    debugger;
-    let PostElement = state.Posts.map( (m) => {
-        return (<Post  dispatch = {props.dispatch} messages={m.messages} likecount = {m.likecount}/>)
-    }
+    let PostElement = props.posts.map((m) => {
+            return (<Post dispatch={props.dispatch} messages={m.messages} likecount={m.likecount}/>)
+        }
     );
-    // MyPosts принимает через props массив объектов Posts (Из state.js), перебирает массив с помощью .map
+    // MyPosts принимает через props массив объектов Posts , перебирает массив с помощью .map
     // преобразует его в массив компонент <Post/>.
+
+    let onTextArea = (e) => {
+        let text = e.target.value;
+        props.upDateNewPostText(text);
+    };
+    // при изменениях в TextArea запускаем функцию onTextArea, она считывает текст из Area и диспатчит объект action в store
+
+    let addPosts = () => {
+        props.addpost();
+    };
+    // при клике на кнопку Add post диспатчим в store объект action, в store пушим новый пост, возвращаем в UI,
+    // очищаем textarea
 
     return (
         <div className={s.posts}>
             <div className={s.item}> My Posts</div>
-            <TextAreaContainer store = {props.store} posttext = {state.newPostText} />
-            {PostElement}
+            <div className={s.item}>
+                <textarea onChange={onTextArea} value={props.posttext} cols="70" rows="6"/>
+                <div>
+                    <button onClick={addPosts}> Add post</button>
+                    <button> Remove</button>
+                </div>
+            </div>
+            <div>
+                <p>{PostElement}</p>
+            </div>
         </div>
     );
 };

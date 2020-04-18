@@ -11,7 +11,7 @@ import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 const App = (props) => {
-debugger;
+
     return (
         <div className="app-wrapper">
             <Header/>

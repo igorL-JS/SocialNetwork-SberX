@@ -1,7 +1,7 @@
 import React from "react";
 import p from "./Profile.module.css";
-import MyPosts from "./MyPosts/MyPosts.js"
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 const Profile = (props) => {
@@ -11,7 +11,7 @@ const Profile = (props) => {
 
             <img src="/shapka.jpg" width="1000" heigth="40"/>
             <ProfileInfo/>
-            <MyPosts store = {props.store} dispatch={props.dispatch} />
+            <MyPostsContainer store = {props.store} dispatch={props.dispatch} />
         </div>
     );
 }

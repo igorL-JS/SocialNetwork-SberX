@@ -3,26 +3,29 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-//import store from "./redux/state";
 import store from "./redux/Redux-store";
+import {Provider} from "react-redux";
 
 
-let reRenderEntireTree = (state) => {
-    debugger;
-    ReactDOM.render((<BrowserRouter><App store={store}
-                                         dispatch={store.dispatch.bind(store)}/>
-    </BrowserRouter>), document.getElementById('root'));
+let reRenderEntireTree = () => {
+    ReactDOM.render((
+        <BrowserRouter>
+            <Provider store={store}>
+                <App store={store} dispatch={store.dispatch.bind(store)}/>
+            </Provider>
+        </BrowserRouter>), document.getElementById('root'));
 };
 
 reRenderEntireTree(store.getState());
 
 
-store.subscribe(() => {
-    let state = store.getState();
+store.subscribe((state) => {
+
     reRenderEntireTree(state);
 });
 
-/**/
+
+
 serviceWorker.unregister();
 
 

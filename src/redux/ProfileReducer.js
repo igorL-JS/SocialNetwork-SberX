@@ -1,6 +1,6 @@
 const UP_DATE_NEW_POST_TEXT = "Up-Date-New-Post-Text";
 const ADD_POSTS = "Add-Posts";
-const ADD_LIKE = "Add-Like";
+
 
 let initialState = {
     Posts: [
@@ -10,23 +10,30 @@ let initialState = {
     newPostText: "What's new ?",
 };
 
-const profileReducer = (state=initialState,action) => {
-        switch (action.type) {
+const profileReducer = (state = initialState, action) => {
+     switch (action.type) {
         case ADD_POSTS: {
             let newPostMessage = {
                 id: 3,
                 messages: state.newPostText,
                 likecount: 0,
             };
-            state.Posts.push(newPostMessage);
+            let copyState = {...state};
+            copyState.Posts = [...state.Posts];
+            copyState.Posts.push(newPostMessage);
+            return copyState;
         }
 
         case UP_DATE_NEW_POST_TEXT: {
-            state.newPostText = action.newText;
+            let copyState = {...state};
+            copyState.newPostText = action.newText;
+            return copyState;
         }
-        default : return state
+        default :
+            return state
     }
 };
+
 
 // Функции  формируют объекты (action) для передачи в store через метод dispatch
 
@@ -40,7 +47,6 @@ export const upDateNewPostTextActionCreator = (text) => {
 export const addPostsActionCreator = () => {
     return {type: ADD_POSTS}
 };
-
 
 
 export default profileReducer;
