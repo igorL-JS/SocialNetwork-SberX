@@ -5,8 +5,11 @@
 .posts {
     padding: 30px;
 }
+.item img {
+    height: 80px;
+    border-radius: 30px;
 
-
+}
 
 
 

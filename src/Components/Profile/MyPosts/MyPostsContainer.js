@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostsActionCreator, upDateNewPostTextActionCreator} from "../../../redux/ProfileReducer";
+import {addPostsActionCreator, upDateLikeAC, upDateNewPostTextActionCreator} from "../../../redux/ProfileReducer";
 import {connect} from "react-redux";
 import MyPosts from "./MyPosts";
 
@@ -18,7 +18,11 @@ let mapDispatchToProps = (dispatch) => {
         addpost: () => {
             dispatch(addPostsActionCreator());
             dispatch(upDateNewPostTextActionCreator(""));
-        }
+        },
+        updatelike: (postId) => {
+            debugger;
+            dispatch(upDateLikeAC(postId));
+        },
     }
 };
 

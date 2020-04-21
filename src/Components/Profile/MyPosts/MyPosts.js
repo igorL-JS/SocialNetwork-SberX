@@ -1,13 +1,24 @@
 import React from "react";
 import s from "./MyPosts.module.css";
-import Post from "./Post/Post";
 import MyPostsContainer from "./MyPostsContainer";
 
 const MyPosts = (props) => {
+
     let PostElement = props.posts.map((m) => {
-            return (<Post dispatch={props.dispatch} messages={m.messages} likecount={m.likecount}/>)
-        }
+    debugger;
+        return (
+            <div className={s.item}>
+                <img src="/avatar_female.png"/>
+                <div> {m.messages} </div>
+                <input onClick={() => {props.updatelike(m.id)}} type="submit" value={`Like - ${m.likecount}`}/>
+            </div>
+        )
+    }
     );
+
+            /*        <Post dispatch={props.dispatch} messages={m.messages} likecount={m.likecount}/>)
+            */
+
     // MyPosts принимает через props массив объектов Posts , перебирает массив с помощью .map
     // преобразует его в массив компонент <Post/>.
 

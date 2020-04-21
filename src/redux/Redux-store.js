@@ -1,13 +1,17 @@
+import {combineReducers, createStore} from "redux";
 import profileReducer from "./ProfileReducer";
 import dialogsReducer from "./DialogsReducer";
-import {combineReducers, createStore} from 'redux';
+import usersReducer from "./UsersReducer";
+import ToDoReducer from "./ToDoReducer";
 
-let reducers = combineReducers({
+
+let redusers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
+    usersPage: usersReducer,
+    toDoPage: ToDoReducer,
 });
 
-let store = createStore(reducers);
-window.store = store;
+let store = createStore(redusers);
 
 export default store;

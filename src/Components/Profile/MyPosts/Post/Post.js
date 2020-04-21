@@ -1,12 +1,14 @@
+/*
 import React from "react";
 import s from "./Post.module.css";
+import profileReducer from "../../../../redux/ProfileReducer";
 
 const Post = (props) => {
     return (
         <div className={s.item}>
             <img src="/avatar_female.png"/>
             <div> {props.messages} </div>
-            <input type="submit" value={`Like - ${props.likecount}`}/>
+            <input onClick={() => {props.updatelike} } type="submit" value={`Like - ${props.likecount}`}/>
         </div>
     );
 }
@@ -14,3 +16,4 @@ const Post = (props) => {
 // кнопку Like + кол-во лайков
 
 export default Post;
+*/

@@ -8,6 +8,9 @@ import Music from "./Components/Music/Music";
 import News from "./Components/News/News"
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import UsersContainer from "./Components/Users/UserContainer";
+import ToDoContainer from "./Components/ToDo/ToDoContainer";
+
 
 
 const App = (props) => {
@@ -26,13 +29,16 @@ const App = (props) => {
                          dispatch={props.dispatch}
                 />)}/>
 
-            <Route path="/dialogs" render={() => (<DialogsContainer store = {props.store}
+            <Route path="/dialogs" render={() => <DialogsContainer store = {props.store}
                                                                dispatch={props.dispatch}
-                                                           />)}/>
+                                                           />}/>
 
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>
             <Route path="/settings" component={Settings}/>
+            <Route path="/users" render={() => <UsersContainer/>} />
+            <Route path="/tasks" render = {() => <ToDoContainer/>}/>
+
         </div>
     );
 };
