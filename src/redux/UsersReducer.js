@@ -3,29 +3,7 @@ const FOLLOW = "Follow";
 const SET_USERS = "Set-Users";
 
 let initialState = {
-    users: [
-        {
-            id: 1,
-            followed: true,
-            name: "Vasiliy",
-            status: "Catch me if you can ...",
-            location: {city: "Moscow", country: "Russia"}
-        },
-        {
-            id: 2,
-            followed: false,
-            name: "Anton",
-            status: "Catch me if you can ...",
-            location: {city: "Saint-Petersburg", country: "Russia"}
-        },
-        {
-            id: 3,
-            followed: true,
-            name: "Andrey",
-            status: "Catch me if you can ...",
-            location: {city: "Kiev", country: "Ukraine"}
-        },
-    ],
+    users: []
 };
 
 const usersReducer = (state = initialState, action) => {
