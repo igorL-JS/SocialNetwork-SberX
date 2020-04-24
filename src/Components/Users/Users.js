@@ -4,41 +4,42 @@ import usersReducer from "../../redux/UsersReducer";
 import * as axios from "axios";
 
 
+class Users extends React.Component {
+        constructor(props) {
+            super(props);
+        }
 
-let Users = (props) => {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
 
-    if (props.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            debugger;
-            props.setUsers(response.data.items) })
     }
-        /*([
-            {
-                id: 1,
-                followed: true,
-                name: "Vasiliy",
-                status: "Catch me if you can ...",
-                location: {city: "Moscow", country: "Russia"}
-            },
-            {
-                id: 2,
-                followed: false,
-                name: "Anton",
-                status: "Catch me if you can ...",
-                location: {city: "Saint-Petersburg", country: "Russia"}
-            },
-            {
-                id: 3,
-                followed: true,
-                name: "Andrey",
-                status: "Catch me if you can ...",
-                location: {city: "Kiev", country: "Ukraine"}
-            },
-        ],)
-    }*/
-    let UsersElement = props.users.map((u) =>{
-        return (
-        <div >
+
+    onPageChanged = (page) => {
+        this.props.setCurrentPage(page);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+        })
+    };
+
+    render() {
+        let pagesCount= Math.ceil((this.props.totalUsersCount / this.props.pageSize));
+
+        let pages = [];
+        for (let i=1; i<=pagesCount; i++) {
+            pages.push(i);
+        }
+
+
+
+
+
+
+        let UsersElement = this.props.users.map((u) => {
+                return (
+                    <div>
             <span>
 
                 <div className={p.avatar}>
@@ -47,16 +48,20 @@ let Users = (props) => {
 
                 <div>
                     {u.followed
-                        ? <input type="submit" onClick= {() => {props.unfollow(u.id)}} value = "Follow"/>
-                        : <input type="submit" onClick= {() => {props.follow(u.id)}} value = "Unfollow"/>
+                        ? <input type="submit" onClick={() => {
+                            this.props.unfollow(u.id)
+                        }} value="Follow"/>
+                        : <input type="submit" onClick={() => {
+                            this.props.follow(u.id)
+                        }} value="Unfollow"/>
                     }
                 </div>
             </span>
 
-            <span>
+                        <span>
 
                 <span>
-                    <div>{u.fullname}</div>
+                    <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
 
@@ -66,19 +71,28 @@ let Users = (props) => {
                 </span>
 
             </span>
-        </div>)}
-    );
+                        <hr align="left" width = "95%"/>
+                    </div>
+                )
+            }
+        );
 
 
-    return (
-    <div className={p.content}>
-        <img src="/shapka.jpg" width="1000" heigth="40"/>
-        <div>
-            {UsersElement}
-        </div>
-    </div>
-    )
-};
+        return (
+            <div className={p.content}>
 
+                <img src="/shapka.jpg" width="1000" heigth="40"/>
+                <div>
+                    {pages.map( (page) => {
+                        return <span onClick={(e) => {this.onPageChanged(page)}} className={this.props.currentPage === page && p.selected}> {page} </span>})}
+                    {UsersElement}
+                </div>
+            </div>
+        )
+
+
+    }
+
+}
 
 export default Users;
