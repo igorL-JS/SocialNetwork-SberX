@@ -3,12 +3,14 @@ const FOLLOW = "Follow";
 const SET_USERS = "Set-UsersAPIContainer";
 const SET_CURRENT_PAGE = "Set-Current-Page";
 const SET_TOTAL_USERS_COUNT = "Set-total-users-count";
+const DISPLAY_PRELOADER = "Display-Preloader";
 
 let initialState = {
     users: [],
     totalUsersCount: 0,
     pageSize: 4,
-    currentPage: 1
+    currentPage: 1,
+    isDisplay:false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -49,6 +51,9 @@ const usersReducer = (state = initialState, action) => {
         case SET_TOTAL_USERS_COUNT : {
             return {... state, totalUsersCount: action.totalUsersCount}
         }
+        case DISPLAY_PRELOADER: {
+            return {...state, isDisplay: action.isDisplay}
+        }
 
         default :
             return state
@@ -73,6 +78,11 @@ export const setCurrentPageAC = (currentPage) => {
 
 export const setTotalUsersCountAC = (totalUsersCount) => {
     return{type: SET_TOTAL_USERS_COUNT, totalUsersCount}
-}
+};
+
+export const displayPreloaderAC = (isDisplay) => {
+    return{type: DISPLAY_PRELOADER, isDisplay}
+};
+
 
 export default usersReducer;

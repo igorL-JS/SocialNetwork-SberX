@@ -1,5 +1,7 @@
 import p from "./Users.module.css";
 import React from "react";
+import preloader from "../../img/preloader.gif";
+import Preloader from "./Preloader";
 
 const Users = (props) => {
 
@@ -14,12 +16,16 @@ const Users = (props) => {
         <div className={p.content}>
 
             <img src="/shapka.jpg" width="1000" heigth="40"/>
+
             <div>
                 {pages.map((page) => {
                     return <span onClick={() => {
                         props.onPageChanged(page)
                     }} className={props.currentPage === page && p.selected}> {page} </span>
                 })}
+
+                {props.isDisplay ? <Preloader/> : null}
+
                 {props.users.map((u) => {
                         return (
                             <div>
