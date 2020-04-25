@@ -1,12 +1,12 @@
 const UNFOLLOW = "Unfollow";
 const FOLLOW = "Follow";
-const SET_USERS = "Set-Users";
+const SET_USERS = "Set-UsersAPIContainer";
 const SET_CURRENT_PAGE = "Set-Current-Page";
 const SET_TOTAL_USERS_COUNT = "Set-total-users-count";
 
 let initialState = {
     users: [],
-    totalUsersCount: 30,
+    totalUsersCount: 0,
     pageSize: 4,
     currentPage: 1
 };
