@@ -10,6 +10,7 @@ import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ToDoContainer from "./Components/ToDo/ToDoContainer";
+import ProfileContainer from "./Components/Profile/ProfileInfo/ProfileContainer";
 
 
 
@@ -19,13 +20,13 @@ const App = (props) => {
         <div className="app-wrapper">
             <Header/>
             <Navbar/>
-            <Route exact path="/" render={() => (
+            <Route exact path='/' render={() => (
                 <Profile store = {props.store}
                          dispatch={props.dispatch}
                 />)}/>
 
-            <Route path="/profile" render={() => (
-                <Profile store = {props.store}
+            <Route path='/profile/:userID?' render={() => (
+                <ProfileContainer store = {props.store}
                          dispatch={props.dispatch}
                 />)}/>
 

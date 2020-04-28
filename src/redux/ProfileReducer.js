@@ -1,6 +1,7 @@
 const UP_DATE_NEW_POST_TEXT = "Up-Date-New-Post-Text";
 const ADD_POSTS = "Add-Posts";
 const UP_DATE_LIKE = "Up-date-like";
+const SET_USER_PROFILE = "Set-user-profile";
 
 
 let initialState = {
@@ -9,6 +10,7 @@ let initialState = {
         {id: 1, liked: false, messages: "Hi, that's my first post", likecount: 24},
     ],
     newPostText: "What's new ?",
+    profile: null
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -37,6 +39,9 @@ const profileReducer = (state = initialState, action) => {
                     return {...p}
                 })
             };
+        case SET_USER_PROFILE:
+            return { ...state, profile: action.profile};
+
         default :
             return state;
     }
@@ -58,6 +63,10 @@ export const addPostsActionCreator = () => {
 
 export const upDateLikeAC = (postId) => {
     return {type: UP_DATE_LIKE, postId}
+};
+
+export const setUserProfileAC = (profile) => {
+    return {type: SET_USER_PROFILE, profile}
 };
 
 export default profileReducer;

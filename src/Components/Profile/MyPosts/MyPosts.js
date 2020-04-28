@@ -5,7 +5,7 @@ import MyPostsContainer from "./MyPostsContainer";
 const MyPosts = (props) => {
 
     let PostElement = props.posts.map((m) => {
-    debugger;
+
         return (
             <div className={s.item}>
                 <img src="/avatar_female.png"/>
