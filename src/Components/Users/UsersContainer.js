@@ -22,7 +22,7 @@ class UsersAPIContainer extends React.Component {
 
     componentDidMount() {
         this.props.displayPreloader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
             this.props.displayPreloader(false);
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount)
@@ -36,7 +36,7 @@ class UsersAPIContainer extends React.Component {
         this.props.setCurrentPage(page);
 
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
             this.props.displayPreloader(false);
             this.props.setUsers(response.data.items)
         })
@@ -53,7 +53,7 @@ class UsersAPIContainer extends React.Component {
                        unfollow={this.props.unfollow}
                        follow={this.props.follow}
                        users={this.props.users}
- isDisplay={this.props.isDisplay}
+                       isDisplay={this.props.isDisplay}
             />)
     };
 
