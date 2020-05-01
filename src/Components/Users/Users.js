@@ -1,9 +1,9 @@
 import p from "./Users.module.css";
 import React from "react";
-import preloader from "../../img/preloader.gif";
 import Preloader from "./Preloader";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
+import {UsersAPI} from "../../API/API";
+
 
 const Users = (props) => {
 
@@ -43,30 +43,17 @@ const Users = (props) => {
                     {u.followed
 
                         ? <input type="submit" onClick={() => {
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "c889db6b-34d0-4944-9db4-0a9e80ebd04e"
-                                    }
-                                }).then(response => {
-                                if (response.data.resultCode === 0) {
+                            UsersAPI.deleteFollow(u.id).then(data => {
+                                if (data.resultCode === 0) {
                                     props.unfollow(u.id)
                                 }
                             })
                         }} value="Follow"/>
 
                         : <input type="submit" onClick={() => {
-                            debugger;
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "c889db6b-34d0-4944-9db4-0a9e80ebd04e"
-                                    }
-                                }).then(response => {
+                            UsersAPI.postFollow(u.id).then(data => {
                                     debugger;
-                                if (response.data.resultCode === 0) {
+                                if (data.resultCode === 0) {
                                     props.follow(u.id)
                                 }
                             })

@@ -8,11 +8,8 @@ import {
     setUsersAC,
     unfollowAC
 } from "../../redux/UsersReducer";
-import * as axios from "axios";
 import Users from "./Users";
-import Preloader from "./Preloader";
-
-
+import {UsersAPI} from "../../API/API";
 
 
 class UsersAPIContainer extends React.Component {
@@ -22,11 +19,14 @@ class UsersAPIContainer extends React.Component {
 
     componentDidMount() {
         this.props.displayPreloader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
-            this.props.displayPreloader(false);
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount)
-        });
+
+        UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+
+            .then(data => {
+                this.props.displayPreloader(false);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount)
+            });
 
 
     };
@@ -36,9 +36,9 @@ class UsersAPIContainer extends React.Component {
         this.props.setCurrentPage(page);
 
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
+        UsersAPI.getUsersOnCurrentPage(page, this.props.pageSize).then(data => {
             this.props.displayPreloader(false);
-            this.props.setUsers(response.data.items)
+            this.props.setUsers(data.items)
         })
 
     };
@@ -47,18 +47,17 @@ class UsersAPIContainer extends React.Component {
         return (
 
             <Users totalUsersCount={this.props.totalUsersCount}
-                       pageSize={this.props.pageSize}
-                       currentPage={this.props.currentPage}
-                       onPageChanged={this.onPageChanged}
-                       unfollow={this.props.unfollow}
-                       follow={this.props.follow}
-                       users={this.props.users}
-                       isDisplay={this.props.isDisplay}
+                   pageSize={this.props.pageSize}
+                   currentPage={this.props.currentPage}
+                   onPageChanged={this.onPageChanged}
+                   unfollow={this.props.unfollow}
+                   follow={this.props.follow}
+                   users={this.props.users}
+                   isDisplay={this.props.isDisplay}
             />)
     };
 
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -83,7 +82,7 @@ const mapDispatchToProps = (dispatch) => {
         setUsers: (users) => {
             dispatch(setUsersAC(users))
         },
-        setCurrentPage : (currentPage) => {
+        setCurrentPage: (currentPage) => {
             dispatch(setCurrentPageAC(currentPage))
         },
         setTotalUsersCount: (totalUsersCount) => {
@@ -96,5 +95,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer);
-
-export default UsersContainer;
+export default UsersContainer

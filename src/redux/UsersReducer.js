@@ -8,7 +8,7 @@ const DISPLAY_PRELOADER = "Display-Preloader";
 let initialState = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 4,
+    pageSize: 20,
     currentPage: 1,
     isDisplay:false,
 };

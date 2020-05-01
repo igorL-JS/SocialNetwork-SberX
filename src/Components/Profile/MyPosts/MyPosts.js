@@ -15,10 +15,6 @@ const MyPosts = (props) => {
         )
     }
     );
-
-            /*        <Post dispatch={props.dispatch} messages={m.messages} likecount={m.likecount}/>)
-            */
-
     // MyPosts принимает через props массив объектов Posts , перебирает массив с помощью .map
     // преобразует его в массив компонент <Post/>.
 
