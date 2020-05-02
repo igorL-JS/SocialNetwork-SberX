@@ -2,7 +2,7 @@ import p from "./Users.module.css";
 import React from "react";
 import Preloader from "./Preloader";
 import {NavLink} from "react-router-dom";
-import {UsersAPI} from "../../API/API";
+
 
 
 const Users = (props) => {
@@ -29,12 +29,14 @@ const Users = (props) => {
                 {props.isDisplay ? <Preloader/> : null}
 
                 {props.users.map((u) => {
+
                         return (
                             <div>
             <span>
 
                 <div className={p.avatar}>
                     <NavLink to= {"/profile/" + u.id}>
+
                         <img src={(u.photos.small != null) ? (u.photos.small) : ("/avatar_1.jpg")}/>
                     </NavLink>
                     </div>
@@ -42,22 +44,9 @@ const Users = (props) => {
                 <div>
                     {u.followed
 
-                        ? <input type="submit" onClick={() => {
-                            UsersAPI.deleteFollow(u.id).then(data => {
-                                if (data.resultCode === 0) {
-                                    props.unfollow(u.id)
-                                }
-                            })
-                        }} value="Follow"/>
+                        ? <input  type="submit" onClick={() => {props.unfollow(u.id)}} value="Follow"/>
 
-                        : <input type="submit" onClick={() => {
-                            UsersAPI.postFollow(u.id).then(data => {
-                                    debugger;
-                                if (data.resultCode === 0) {
-                                    props.follow(u.id)
-                                }
-                            })
-                        }} value="Unfollow"/>
+                        : <input  type="submit" onClick={() => {props.follow(u.id)}} value="Unfollow"/>
                     }
 
                 </div>

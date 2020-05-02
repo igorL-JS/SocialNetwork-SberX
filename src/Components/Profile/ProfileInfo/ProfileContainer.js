@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import * as axios from "axios";
 import p from "../Profile.module.css";
 import Profile from "../Profile";
-import {setUserProfileAC} from "../../../redux/ProfileReducer";
+import {getMyPageThunk, getPageProfile, setUserProfileAC} from "../../../redux/ProfileReducer";
 import {withRouter} from "react-router-dom";
 import {UsersAPI} from "../../../API/API";
 
@@ -16,9 +16,7 @@ class ProfileContainer extends React.Component {
        if (!userID) {
            userID = 7604
        }
-       UsersAPI.getMyPage(userID).then(data => {
-           this.props.setUserProfile(data)
-       })
+       this.props.getPageProfile(userID)
    };
 
     render() {
@@ -38,8 +36,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setUserProfile: (profile)=> {
-            dispatch(setUserProfileAC(profile))
+        getPageProfile: (userId) => {
+            dispatch(getPageProfile(userId))
         }
     };
 };

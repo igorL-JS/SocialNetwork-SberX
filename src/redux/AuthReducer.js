@@ -1,3 +1,5 @@
+import {UsersAPI} from "../API/API";
+
 const SET_USER_DATA = "Set-user-data";
 
 let initialState = {
@@ -24,6 +26,9 @@ export const setUserDataAC = (id, login, email) => {
     return {type: SET_USER_DATA,
             data: {id, login, email}}
     };
+
+
+
 
 
 export default authReducer

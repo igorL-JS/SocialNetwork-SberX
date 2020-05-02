@@ -1,3 +1,5 @@
+import {UsersAPI} from "../API/API";
+
 const UP_DATE_NEW_POST_TEXT = "Up-Date-New-Post-Text";
 const ADD_POSTS = "Add-Posts";
 const UP_DATE_LIKE = "Up-date-like";
@@ -67,6 +69,14 @@ export const upDateLikeAC = (postId) => {
 
 export const setUserProfileAC = (profile) => {
     return {type: SET_USER_PROFILE, profile}
+};
+
+export const getPageProfile = (userID) => {
+    return dispatch => {
+        UsersAPI.getPageProfile(userID).then(data => {
+            dispatch(setUserProfileAC(data))
+        })
+    }
 };
 
 export default profileReducer;

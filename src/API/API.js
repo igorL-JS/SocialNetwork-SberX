@@ -10,7 +10,7 @@ const instance = axios.create({
 
 
 export const UsersAPI = {
-    getMyPage (userID) {
+    getPageProfile (userID) {
         return (instance.get(`profile/`+ userID).
         then (response => {
             return (response.data)
