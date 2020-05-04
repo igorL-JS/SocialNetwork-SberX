@@ -1,11 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
-import * as axios from "axios";
 import p from "../Profile.module.css";
 import Profile from "../Profile";
 import {getMyPageThunk, getPageProfile, setUserProfileAC} from "../../../redux/ProfileReducer";
-import {withRouter} from "react-router-dom";
-import {UsersAPI} from "../../../API/API";
+import {Redirect, withRouter} from "react-router-dom";
+import Login from "../../Login/Login";
+import {withAuthRedirect} from "../../../HOC/withAuthRedirect";
+import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component {
@@ -20,16 +21,17 @@ class ProfileContainer extends React.Component {
    };
 
     render() {
+
         return (
             <Profile {...this.props} profile = {this.props.profile}/>
         )
     }
-}
 
+}
 
 const mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile,
+            profile: state.profilePage.profile,
     }
 };
 
@@ -42,5 +44,10 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
+//const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ProfileContainer));
+
+export default compose (
+    connect(mapStateToProps,mapDispatchToProps),
+    withRouter,
+    withAuthRedirect)(ProfileContainer);

@@ -17,31 +17,31 @@ export const UsersAPI = {
         }))
     },
     getUsers (currentPage, pageSize) {
-        return (instance.get(`users?page=${currentPage}&count=${pageSize}`/*, {withCredentials: true}*/)
+        return (instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
                 return (response.data)
             }))
     },
     getUsersOnCurrentPage (page, pageSize) {
-        return (instance.get(`users?page=${page}&count=${pageSize}`/*, {withCredentials: true}*/).
+        return (instance.get(`users?page=${page}&count=${pageSize}`).
         then(response => {
             return (response.data)
         }))
     },
     deleteFollow (id) {
-        return (instance.delete(`follow/${id}`/*, settings*/)
+        return (instance.delete(`follow/${id}`)
             .then(response => {
                 return (response.data)
             }))
     },
     postFollow (id) {
-        return (instance.post(`follow/${id}`, {}/*, settings*/)
+        return (instance.post(`follow/${id}`)
             .then (response => {
                 return (response.data)
             }))
     },
     getAuthMe () {
-        return (instance.get(`auth/me`/*, {withCredentials: true}*/)
+        return (instance.get(`auth/me`)
                 .then(response =>{
                     return (response.data)
                 })

@@ -11,6 +11,7 @@ import UsersContainer from "./Components/Users/UsersContainer";
 import ToDoContainer from "./Components/ToDo/ToDoContainer";
 import ProfileContainer from "./Components/Profile/ProfileInfo/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
+import Login from "./Components/Login/Login";
 
 
 
@@ -39,6 +40,7 @@ const App = (props) => {
             <Route path="/settings" component={Settings}/>
             <Route path="/users" render={() => <UsersContainer/>} />
             <Route path="/tasks" render = {() => <ToDoContainer/>}/>
+            <Route path="/login" render = {() => <Login/>}/>
 
         </div>
     );

@@ -1,6 +1,6 @@
 import React from "react";
 import p from "./Dialogs.module.css";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import DialogsContainer from "./DialogsContainer"
 
 const DialogItem = (props) => {
@@ -41,7 +41,9 @@ const Dialogs = (props) => {
         props.onchangemessage(text);
     };
 
-    return (
+
+     return (
+
         <div>
             <img src="/shapka.jpg" width="1000" heigth="40"/>
 

@@ -27,9 +27,15 @@ export const setUserDataAC = (id, login, email) => {
             data: {id, login, email}}
     };
 
+export const getAuthMe = () => (dispatch) => {
+        UsersAPI.getAuthMe().then(data => {
+            if (data.resultCode === 0) {
+                let {id, login, email} = data.data;
+                dispatch(setUserDataAC(id, login, email));
+            }
+        })
 
-
-
+};
 
 export default authReducer
 
