@@ -1,19 +1,25 @@
 import React from "react";
 import p from "./ProfileInfo.module.css";
 import Preloader from "../../Users/Preloader";
+import ProfileStatus from "./ProfileStatus";
 
 
 const ProfileInfo = (props) => {
 
     if (!props.profile) {
+
         return <Preloader/>
     }
+
         return (
             <div className={p.content}>
 
                 <div>
                     <img src={(props.profile.photos.large != null) ? (props.profile.photos.small) : ("/avatar_1.jpg")} width="300" heigth="150"/>
 
+                </div>
+                <div>
+                <ProfileStatus status = {props.status} updatestatus = {props.updatestatus}/>
                 </div>
 
                 <div className={p.item}> My name: {props.profile.fullName}

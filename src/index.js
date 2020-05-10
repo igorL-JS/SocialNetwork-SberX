@@ -11,8 +11,9 @@ ReactDOM.render((
     <Provider store={store}>
         <BrowserRouter>
             <App store={store} dispatch={store.dispatch.bind(store)}/>
-        </BrowserRouter>)
-    </Provider>), document.getElementById("root"));
+        </BrowserRouter>
+    </Provider>)
+    , document.getElementById("root"));
 
 serviceWorker.unregister();
 

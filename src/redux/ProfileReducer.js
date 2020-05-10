@@ -1,31 +1,29 @@
-import {UsersAPI} from "../API/API";
+import {ProfileAPI} from "../API/API";
 
-const UP_DATE_NEW_POST_TEXT = "Up-Date-New-Post-Text";
 const ADD_POSTS = "Add-Posts";
 const UP_DATE_LIKE = "Up-date-like";
 const SET_USER_PROFILE = "Set-user-profile";
-
+const GET_STATUS = "Get-status";
 
 let initialState = {
     Posts: [
         {id: 0, liked: false, messages: "Hi, everyone! I use SberX", likecount: 30},
         {id: 1, liked: false, messages: "Hi, that's my first post", likecount: 24},
     ],
-    newPostText: "What's new ?",
-    profile: null
+    newPostText: " ",
+    profile: null,
+    status: " "
 };
 
 const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
+
         case ADD_POSTS:
             return {
                 ...state,
-                Posts: [...state.Posts, {id: state.Posts.length++ , liked: false, messages: state.newPostText, likecount: 0}]
+                Posts: [...state.Posts, {id: state.Posts.length++ , liked: false, messages: action.newText, likecount: 0}]
             };
-
-        case UP_DATE_NEW_POST_TEXT:
-            return {...state, newPostText: action.newText};
 
         case UP_DATE_LIKE:
             return {
@@ -43,7 +41,8 @@ const profileReducer = (state = initialState, action) => {
             };
         case SET_USER_PROFILE:
             return { ...state, profile: action.profile};
-
+        case GET_STATUS:
+            return {... state, status: action.status};
         default :
             return state;
     }
@@ -52,15 +51,12 @@ const profileReducer = (state = initialState, action) => {
 
 // Функции  формируют объекты (action) для передачи в store через метод dispatch
 
-export const upDateNewPostTextActionCreator = (text) => {
+
+export const addPostsActionCreator = (text) => {
     return {
-        type: UP_DATE_NEW_POST_TEXT,
+        type: ADD_POSTS,
         newText: text
     }
-};
-
-export const addPostsActionCreator = () => {
-    return {type: ADD_POSTS}
 };
 
 export const upDateLikeAC = (postId) => {
@@ -71,12 +67,34 @@ export const setUserProfileAC = (profile) => {
     return {type: SET_USER_PROFILE, profile}
 };
 
+export const getStatusAC = (status) => {
+    return {type: GET_STATUS, status}
+};
+
 export const getPageProfile = (userID) => {
     return dispatch => {
-        UsersAPI.getPageProfile(userID).then(data => {
+        ProfileAPI.getPageProfile(userID).then(data => {
             dispatch(setUserProfileAC(data))
         })
     }
 };
+
+export const getStatusThunk = (userID) => {
+    return dispatch => {
+        ProfileAPI.getStatus(userID).then (data => {
+            dispatch(getStatusAC(data))
+        } )
+    }
+};
+
+export const upDateStatusThunk = (status) => {
+    return dispatch => {
+        ProfileAPI.upDateStatus(status). then (data => {
+            if (data.resultCode === 0)
+            dispatch(getStatusAC(status))
+        })
+    }
+};
+
 
 export default profileReducer;

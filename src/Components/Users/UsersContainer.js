@@ -2,12 +2,16 @@ import React from "react";
 import {connect} from "react-redux";
 import {
     followThunkCreator, getUsersThunkCreator, onPageChangedThunkCreator,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
     unfollowThunkCreator
 } from "../../redux/UsersReducer";
 import Users from "./Users";
+import {
+    getCurrentPage,
+    getIsDisplay,
+    getPageSize,
+    getRequestUsers,
+    getTotalUsersCount
+} from "../../redux/usersSelectors";
 
 
 
@@ -18,35 +22,15 @@ class UsersAPIContainer extends React.Component {
 
     componentDidMount() {
         this.props.setUsers(this.props.currentPage, this.props.pageSize)
-        /*this.props.displayPreloader(true);
 
-        UsersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-
-            .then(data => {
-                this.props.displayPreloader(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount)
-            });
-
-*/
     };
 
     onPageChanged = (page) => {
         this.props.onPageChangedThunk(page, this.props.pageSize)
-        /*this.props.displayPreloader(true);
-        this.props.setCurrentPage(page);
-
-
-        UsersAPI.getUsersOnCurrentPage(page, this.props.pageSize).then(data => {
-            this.props.displayPreloader(false);
-            this.props.setUsers(data.items)
-        })
-*/
     };
 
     render() {
         return (
-
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
@@ -64,14 +48,14 @@ class UsersAPIContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        isDisplay: state.usersPage.isDisplay,
-
+        users: getRequestUsers(state),
+        totalUsersCount: getTotalUsersCount(state),
+        pageSize:getPageSize(state) ,
+        currentPage: getCurrentPage(state) ,
+        isDisplay: getIsDisplay(state)
     }
 };
+// Используем селекторы - f(), которая принимает state и возвращает необходимую его часть.
 
 const mapDispatchToProps = (dispatch) => {
     return {

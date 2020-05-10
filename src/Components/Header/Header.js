@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import React from "react";
 
 const Header = (props) => {
@@ -9,12 +9,17 @@ const Header = (props) => {
 
         <div className="loginBlock">
             {props.isAuth
-                ? props.login
+                ? <div>
+                    {props.login}
+                    <input type="button" value="Log out" onClick={props.logout}/>
+
+                </div>
+
                 : <NavLink to={"/login"}> Login </NavLink>
             }
         </div>
     </header>
     )
-}
+};
 
 export default Header

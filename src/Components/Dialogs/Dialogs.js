@@ -2,6 +2,7 @@ import React from "react";
 import p from "./Dialogs.module.css";
 import {NavLink, Redirect} from "react-router-dom";
 import DialogsContainer from "./DialogsContainer"
+import {FormDialogsRedux} from "./FormDialogs";
 
 const DialogItem = (props) => {
     let path = "/dialogs/" + props.id;
@@ -31,19 +32,13 @@ const Dialogs = (props) => {
         }
     );
 
-    let addMessage = () => {
-        props.addmessage();
+    const onSubmit = (formData) => {
+        return (props.addMessage(formData.textarea)
+        )
 
     };
 
-    let onChangeMessage = (e) => {
-        let text = e.target.value;
-        props.onchangemessage(text);
-    };
-
-
-     return (
-
+    return (
         <div>
             <img src="/shapka.jpg" width="1000" heigth="40"/>
 
@@ -54,21 +49,10 @@ const Dialogs = (props) => {
 
                 <div className={p.messages}>
                     {MessageElement}
-
-                    <div className={p.textarea}>
-                        <div>
-                            <textarea onChange={onChangeMessage} rows="3" cols="70" value={props.messagetext}/>
-                        </div>
-                        <div>
-                            <input onClick={addMessage} type="submit" value="Send message">
-                            </input>
-                        </div>
-                    </div>
-
+                    <FormDialogsRedux onSubmit={onSubmit}/>
                 </div>
             </div>
         </div>
-
     );
 };
 export default Dialogs;

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
-import {Route} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News"
 import Settings from "./Components/Settings/Settings";
@@ -12,39 +12,74 @@ import ToDoContainer from "./Components/ToDo/ToDoContainer";
 import ProfileContainer from "./Components/Profile/ProfileInfo/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
+import ToDoList from "./Components/ToDoList/ToDoList";
+import {connect} from "react-redux";
+import {getAuthMe} from "./redux/AuthReducer";
+import {initializeApp} from "./redux/AppReducer";
+import Preloader from "./Components/Users/Preloader";
 
 
+class App extends React.Component {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
 
-const App = (props) => {
+    render() {
+        if (!this.props.initialized) {
+            debugger;
+            return <Preloader/>
+        }
+        return (
+            <div className="app-wrapper">
+                <HeaderContainer/>
+                <Navbar/>
+                <Route exact path='/' render={() => (
+                    <Profile store={this.props.store}
+                             dispatch={this.props.dispatch}
+                    />)}/>
 
-    return (
-        <div className="app-wrapper">
-            <HeaderContainer />
-            <Navbar/>
-            <Route exact path='/' render={() => (
-                <Profile store = {props.store}
-                         dispatch={props.dispatch}
-                />)}/>
+                <Route path='/profile/:userID?' render={() => (
+                    <ProfileContainer store={this.props.store}
+                                      dispatch={this.props.dispatch}
+                    />)}/>
 
-            <Route path='/profile/:userID?' render={() => (
-                <ProfileContainer store = {props.store}
-                         dispatch={props.dispatch}
-                />)}/>
+                <Route path="/dialogs" render={() => <DialogsContainer store={this.props.store}
+                                                                       dispatch={this.props.dispatch}
+                />}/>
 
-            <Route path="/dialogs" render={() => <DialogsContainer store = {props.store}
-                                                               dispatch={props.dispatch}
-                                                           />}/>
+                <Route path="/music" component={Music}/>
+                <Route path="/news" component={News}/>
+                <Route path="/settings" component={Settings}/>
+                <Route path="/users" render={() => <UsersContainer/>}/>
+                <Route path="/tasks" render={() => <ToDoList/>}/>
+                <Route path="/login" render={() => <Login/>}/>
 
-            <Route path="/music" component={Music}/>
-            <Route path="/news" component={News}/>
-            <Route path="/settings" component={Settings}/>
-            <Route path="/users" render={() => <UsersContainer/>} />
-            <Route path="/tasks" render = {() => <ToDoContainer/>}/>
-            <Route path="/login" render = {() => <Login/>}/>
+            </div>
+        );
+    }
+}
 
-        </div>
-    );
-};
 // <Route /> следит за адресной строкой и рендерит компоненету согласно тексту в строке. для передачи props
 // используем атрибут render, он принимает только функцию
-export default App;
+
+const mapStateToProps = (state) => {
+    return {
+        initialized: state.app.initialized
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAuthMe: () => {
+            dispatch(getAuthMe())
+        },
+        initializeApp: () => {
+            dispatch(initializeApp())
+        }
+    }
+};
+
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+
+

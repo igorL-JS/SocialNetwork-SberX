@@ -1,13 +1,75 @@
 import React from "react";
-import p from "../Music/Music.module.css";
+import p from "../Music/Music.module.css"
+import {Field, reduxForm} from "redux-form";
+import {LoginThunk} from "../../redux/LoginReducer";
+import {Element, Input} from "../formControl/FormControl";
+import {maxLengthCreator, requiredField} from "../../Utilities/validate";
+import {login} from "../../redux/AuthReducer";
+import {connect} from "react-redux";
+import style from "../formControl/formControl.module.css"
+import {Redirect} from "react-router-dom";
 
-const Login = (props) => {
+let maxLength20 = maxLengthCreator(20);
+
+
+export const LoginForm = (props) => {
+
     return (
-        <div className={p.content}>
-            <img src="/shapka.jpg" width="1000" heigth="40"/>
-            <h1>LOGIN</h1>
-        </div>
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <div>
+                    <Field name="email" component={Element} validate={[requiredField, maxLength20] } placeholder="Login"  />
+                </div>
+                <div>
+                    <Field type = "password" name="password" component={Element} validate={[requiredField, maxLength20]} placeholder="Password"/>
+                </div>
+
+                <div>
+                    <Field type = "checkbox" name="rememberMe" component= "input" />Remember me
+                </div>
+                {props.error && <div className = {style.formSummaryError} >
+                    {props.error}
+                </div> }
+
+                <div>
+                    <input type="submit" value="Submit"/>
+                </div>
+            </div>
+        </form>
     )
 };
 
-export default Login
+
+const LoginReduxForm = reduxForm({form: "Login"})(LoginForm);
+
+const Login = (props) => {
+    const onSubmit =(formData) => {
+        return (props.login(formData.email, formData.password, formData.rememberMe)
+        )
+    };
+    if (props.isAuth) {return <Redirect to= "/profile"/>}
+        return (
+            <div className={p.content}>
+            <img src="/shapka.jpg" width="1000" heigth="40"/>
+            <h1>LOGIN</h1>
+            <LoginReduxForm  onSubmit={onSubmit}/>
+            </div>
+            )
+
+};
+
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      login: (email,password,rememberMe) => {
+          dispatch(login(email,password,rememberMe))
+      }
+  }
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
