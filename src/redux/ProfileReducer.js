@@ -4,6 +4,7 @@ const ADD_POSTS = "Add-Posts";
 const UP_DATE_LIKE = "Up-date-like";
 const SET_USER_PROFILE = "Set-user-profile";
 const GET_STATUS = "Get-status";
+const DELETE_POST = "Delete-Post ";
 
 let initialState = {
     Posts: [
@@ -18,6 +19,10 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        case DELETE_POST:
+            return {
+                ...state, Posts: state.Posts.filter( p => p.id !== action.id)
+            };
 
         case ADD_POSTS:
             return {
@@ -56,6 +61,12 @@ export const addPostsActionCreator = (text) => {
     return {
         type: ADD_POSTS,
         newText: text
+    }
+};
+export const deletePostAC = (id)=>{
+    return{
+        type: DELETE_POST,
+        id: id
     }
 };
 
