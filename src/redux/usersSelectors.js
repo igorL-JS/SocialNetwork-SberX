@@ -16,5 +16,7 @@ export const getIsDisplay = (state) => {
     return state.usersPage.isDisplay
 };
 
-
+export const getSizeOfPart = (state) => {
+    return state.usersPage.sizeOfPart
+};
 

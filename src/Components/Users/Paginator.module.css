@@ -1,3 +1,29 @@
 .selected {
     font-weight: bold;
 }
+
+.pagination{
+    display: inline-block;
+    max-width: 1000px;
+    
+}
+
+.pagination a {
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+    font-weight: normal;
+    float: left;
+    padding: 8px 16px;
+}
+
+.pagination a.selected {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination a:hover:not(.selected){
+    background-color: #ddd;
+    border-radius: 5px;
+}

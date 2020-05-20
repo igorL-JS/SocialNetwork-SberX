@@ -13,7 +13,8 @@ let initialState = {
     pageSize: 20,
     currentPage: 1,
     isDisplay:false,
-    isDisabled:false
+    isDisabled:false,
+    sizeOfPart: 10,
 };
 
 const usersReducer = (state = initialState, action) => {

@@ -9,7 +9,7 @@ import {
     getCurrentPage,
     getIsDisplay,
     getPageSize,
-    getRequestUsers,
+    getRequestUsers, getSizeOfPart,
     getTotalUsersCount
 } from "../../redux/usersSelectors";
 
@@ -39,6 +39,7 @@ class UsersAPIContainer extends React.Component {
                    follow={this.props.follow}
                    users={this.props.users}
                    isDisplay={this.props.isDisplay}
+                   sizeOfPart={this.props.sizeOfPart}
 
 
             />)
@@ -52,7 +53,8 @@ const mapStateToProps = (state) => {
         totalUsersCount: getTotalUsersCount(state),
         pageSize:getPageSize(state) ,
         currentPage: getCurrentPage(state) ,
-        isDisplay: getIsDisplay(state)
+        isDisplay: getIsDisplay(state),
+        sizeOfPart: getSizeOfPart(state),
     }
 };
 // Используем селекторы - f(), которая принимает state и возвращает необходимую его часть.

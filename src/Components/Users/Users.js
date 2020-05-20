@@ -15,7 +15,7 @@ const Users = (props) => {
 
             <div>
 
-              <Paginator className={p.content} totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+              <Paginator className={p.content} sizeOfPart={props.sizeOfPart} totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
                            currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
 
                 {props.isDisplay ? <Preloader/> : null}
