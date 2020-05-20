@@ -18,14 +18,13 @@ export const appReducer = (state=initialState, action) => {
     }
 };
 
-
 export const initializeAC = () => {
     return {type: INITIALIZE_SUCCESS};
 };
 
-export const initializeApp = ()=> (dispatch) =>{
-    let promise = dispatch(getAuthMe());
-    promise.then( () => dispatch(initializeAC()))
+export const initializeApp = () => async (dispatch) => {
+    let response = await dispatch(getAuthMe());
+    dispatch(initializeAC())
 };
 
 

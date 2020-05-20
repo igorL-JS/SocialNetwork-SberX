@@ -6,8 +6,8 @@ const ProfileStatusWithHook = (props) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
 
+    useEffect( () => {setStatus(props.status)}, [props.status]);
 
-    useEffect( () => {setStatus(props.status)}, [props.status])
     const activeEdit = () => {
         setEditMode(true)
     };
@@ -24,15 +24,9 @@ const ProfileStatusWithHook = (props) => {
     return (
 
         <div>
-
             {editMode
-                ? <div>
-                    <input onChange={onChangeStatus} onBlur={disActiveEdit} type="text" value={status} autoFocus/>
-                </div>
-                : <div>
-                    <span onDoubleClick={activeEdit}> <mark>{status}</mark></span>
-
-                </div>
+                ? <span> Status : <input onChange={onChangeStatus} onBlur={disActiveEdit} type="text" value={status} autoFocus/></span>
+                : <span onDoubleClick={activeEdit}>Status: {status}</span>
             }
         </div>
     )

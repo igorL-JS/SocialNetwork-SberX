@@ -22,37 +22,36 @@ const authReducer = (state= initialState, action) => {
 };
 
 export const setUserDataAC = (id, login, email, isAuth) => {
-    return {type: SET_USER_DATA,
-            data: {id, login, email, isAuth}}
-    };
-
-export const getAuthMe = () => (dispatch) => {
-        return (UsersAPI.getAuthMe().then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data;
-                dispatch(setUserDataAC(id, login, email, true));
-            }
-        }))
-
-};
-export const login = (email,password,rememberMe) => (dispatch) => {
-    LoginAPI.logIn(email,password,rememberMe).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(getAuthMe());
-        } else {
-            let message = (data.messages.length > 0) ? (data.messages) : ("Common error");
-            dispatch(stopSubmit("Login", {_error: message}));
-        }
-    })
-
+    return {
+        type: SET_USER_DATA,
+        data: {id, login, email, isAuth}
+    }
 };
 
-export const logout = () => (dispatch) => {
-    LoginAPI.logOut().then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setUserDataAC(null, null, null, false))
-        }
-    })
+export const getAuthMe = () => async (dispatch) => {
+    let response = await UsersAPI.getAuthMe();
+    if (response.resultCode === 0) {
+        let {id, login, email} = response.data;
+        dispatch(setUserDataAC(id, login, email, true));
+    }
+};
+
+export const login = (email, password, rememberMe) => async (dispatch) => {
+    let response = await LoginAPI.logIn(email, password, rememberMe);
+    if (response.resultCode === 0) {
+        dispatch(getAuthMe());
+    } else {
+        let message = (response.messages.length > 0) ? (response.messages) : ("Common error");
+        dispatch(stopSubmit("Login", {_error: message}));
+    }
+};
+
+export const logout = () => async (dispatch) => {
+    let response = await LoginAPI.logOut();
+    if (response.resultCode === 0) {
+        dispatch(setUserDataAC(null, null, null, false))
+    }
+
 
 };
 

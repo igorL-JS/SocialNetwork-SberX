@@ -41,7 +41,6 @@ export const UsersAPI = {
                 })
         )
     }
-
 };
 
 export const ProfileAPI = {

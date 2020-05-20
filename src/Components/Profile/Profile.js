@@ -9,7 +9,7 @@ const Profile = (props) => {
     return (
         <div className={p.content}>
 
-            <img src="/shapka.jpg" width="1000" heigth="40"/>
+            <img src="/shapka.jpg" width="1000" />
             <ProfileInfo profile = {props.profile} status = {props.status} updatestatus = {props.updatestatus} />
             <MyPostsContainer store = {props.store} dispatch={props.dispatch} />
         </div>

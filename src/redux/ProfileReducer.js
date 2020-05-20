@@ -83,27 +83,26 @@ export const getStatusAC = (status) => {
 };
 
 export const getPageProfile = (userID) => {
-    return dispatch => {
-        ProfileAPI.getPageProfile(userID).then(data => {
-            dispatch(setUserProfileAC(data))
-        })
+    return async dispatch => {
+        let response = await ProfileAPI.getPageProfile(userID);
+            dispatch(setUserProfileAC(response))
+
     }
 };
 
 export const getStatusThunk = (userID) => {
-    return dispatch => {
-        ProfileAPI.getStatus(userID).then (data => {
-            dispatch(getStatusAC(data))
-        } )
+    return async dispatch => {
+        let response = await ProfileAPI.getStatus(userID);
+        dispatch(getStatusAC(response))
+
     }
 };
 
 export const upDateStatusThunk = (status) => {
-    return dispatch => {
-        ProfileAPI.upDateStatus(status). then (data => {
-            if (data.resultCode === 0)
+    return  async dispatch => {
+        let response = await ProfileAPI.upDateStatus(status);
+            if (response.resultCode === 0)
             dispatch(getStatusAC(status))
-        })
     }
 };
 

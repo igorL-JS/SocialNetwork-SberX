@@ -86,43 +86,37 @@ export const displayPreloaderAC = (isDisplay) => {
 
 
 export const getUsersThunkCreator = (currentPage, pageSize) =>
-    (dispatch) => {
+    async (dispatch) => {
         dispatch(displayPreloaderAC(true));
-        UsersAPI.getUsers(currentPage, pageSize)
-            .then(data => {
+        let response = await UsersAPI.getUsers(currentPage, pageSize);
                 dispatch(displayPreloaderAC(false));
-                dispatch(setUsersAC(data.items));
-                dispatch(setTotalUsersCountAC(data.totalCount))
-            })
-    };
+                dispatch(setUsersAC(response.items));
+                dispatch(setTotalUsersCountAC(response.totalCount))
+};
 
 export const onPageChangedThunkCreator = (page, pageSize) =>
-    (dispatch) => {
+    async (dispatch) => {
         dispatch(displayPreloaderAC(true));
         dispatch(setCurrentPageAC(page));
-        UsersAPI.getUsersOnCurrentPage(page, pageSize).then(data => {
+        let response = await UsersAPI.getUsersOnCurrentPage(page, pageSize);
             dispatch(displayPreloaderAC(false));
-            dispatch(setUsersAC(data.items))
-        })
+            dispatch(setUsersAC(response.items))
     };
 
 export const unfollowThunkCreator = (userID) =>
-    (dispatch) => {
-        UsersAPI.deleteFollow(userID).then(data => {
-            if (data.resultCode === 0) {
+    async (dispatch) => {
+        let response = await UsersAPI.deleteFollow(userID)
+            if (response.resultCode === 0) {
                 dispatch(unfollowAC(userID))
             }
-        })
-
-    };
+};
 
 export const followThunkCreator = (userID) =>
-    (dispatch) => {
-        UsersAPI.postFollow(userID).then(data => {
-            if (data.resultCode === 0) {
+    async (dispatch) => {
+        let response = await UsersAPI.postFollow(userID)
+            if (response.resultCode === 0) {
                 dispatch(followAC(userID))
             }
-        })
     };
 
 export default usersReducer;

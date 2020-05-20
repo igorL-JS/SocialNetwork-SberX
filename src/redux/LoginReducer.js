@@ -1,3 +1,4 @@
+/*
 import {LoginAPI} from "../API/API";
 
 const LOGIN = "Login";
@@ -39,5 +40,6 @@ export const LoginThunk = (email, password, rememberMe) => (dispatch) => {
 };
 
 export default loginReducer;
+*/
 
 

@@ -1,11 +1,8 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
 import {Route, withRouter} from "react-router-dom";
-import Music from "./Components/Music/Music";
-import News from "./Components/News/News"
-import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ToDoContainer from "./Components/ToDo/ToDoContainer";
@@ -18,6 +15,9 @@ import {getAuthMe} from "./redux/AuthReducer";
 import {initializeApp} from "./redux/AppReducer";
 import Preloader from "./Components/Users/Preloader";
 
+const Music = React.lazy( () => import("./Components/Music/Music")); //React.lazy + React.Suspense
+const News = React.lazy( () => import("./Components/News/News")); //React.lazy + React.Suspense
+const Settings = React.lazy( () => import ("./Components/Settings/Settings"));
 
 class App extends React.Component {
     componentDidMount() {
@@ -46,10 +46,11 @@ class App extends React.Component {
                 <Route path="/dialogs" render={() => <DialogsContainer store={this.props.store}
                                                                        dispatch={this.props.dispatch}
                 />}/>
-
-                <Route path="/music" component={Music}/>
-                <Route path="/news" component={News}/>
-                <Route path="/settings" component={Settings}/>
+                <Suspense fallback={<div>Загрузка...</div>}>   {/*React.Suspense*/}
+                    <Route path="/music" render = {() => <Music />} />
+                    <Route path="/news" render={() => <News />} />
+                    <Route path="/settings" render={() => <Settings />} />
+                </Suspense>
                 <Route path="/users" render={() => <UsersContainer/>}/>
                 <Route path="/tasks" render={() => <ToDoList/>}/>
                 <Route path="/login" render={() => <Login/>}/>

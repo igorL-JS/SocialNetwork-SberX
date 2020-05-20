@@ -1,15 +1,23 @@
 .content {
     display: grid;
     background-color: #F5F5F5;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
     padding: 15px;
 
 }
 
 .item {
-    color: forestgreen;
-    font: 16pt serif
+    color: black;
+    font: 16pt serif;
+
+
 }
+
+.avatar img {
+    max-width: 350px;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+}
+
 
 
 
