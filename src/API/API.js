@@ -9,6 +9,7 @@ const instance = axios.create({
 });
 
 
+
 export const UsersAPI = {
     getUsers (currentPage, pageSize) {
         return (instance.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -62,12 +63,35 @@ export const ProfileAPI = {
                 return (response.data)
         } ))
     },
+    savePhoto (photo) {
+        const formData = new FormData();
+        formData.append("image",photo);
 
+
+        return (instance.put (`profile/photo`,formData, {
+            headers: {
+                "Content-type": `multipart/form-data`
+            }
+        }).
+        then(response => {
+            debugger;
+            return (response.data);
+
+        } ))
+    },
+
+    changeData (profile) {
+        return (instance.put(`profile/`, profile).then (response => {
+            debugger;
+            return (response.data)
+            })
+        )
+    }
 };
 
 export const LoginAPI = {
-    logIn (email, password,rememberMe) {
-        return (instance.post(`auth/login/`, {email: email, password: password, rememberMe: rememberMe})
+    logIn (email, password,rememberMe,captcha) {
+        return (instance.post(`auth/login/`, {email: email, password: password, rememberMe: rememberMe, captcha})
             .then (response => {
                 return (response.data)
         } ))
@@ -80,5 +104,14 @@ export const LoginAPI = {
         )
     },
 
+};
+
+export const SecurityAPI = {
+    getCaptchaURL() {
+        return(instance.get(`security/get-captcha-url`)
+            .then(response => {
+                return(response.data)
+            }))
+    }
 };
 

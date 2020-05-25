@@ -27,6 +27,13 @@ export const LoginForm = (props) => {
                 <div>
                     <Field type = "checkbox" name="rememberMe" component= "input" />Remember me
                 </div>
+
+                {props.captchaUrl && <div>
+                                        <img src = {props.captchaUrl}/>
+                                        <Field name="captcha" component="input" validate={[requiredField]} placeholder="Symbols from image"  />
+                                     </div>
+                }
+
                 {props.error && <div className = {style.formSummaryError} >
                     {props.error}
                 </div> }
@@ -44,7 +51,7 @@ const LoginReduxForm = reduxForm({form: "Login"})(LoginForm);
 
 const Login = (props) => {
     const onSubmit =(formData) => {
-        return (props.login(formData.email, formData.password, formData.rememberMe)
+        return (props.login(formData.email, formData.password, formData.rememberMe,formData.captcha)
         )
     };
     if (props.isAuth) {return <Redirect to= "/profile"/>}
@@ -52,7 +59,7 @@ const Login = (props) => {
             <div className={p.content}>
             <img src="/shapka.jpg" width="1000" heigth="40"/>
             <h1>LOGIN</h1>
-            <LoginReduxForm  onSubmit={onSubmit}/>
+            <LoginReduxForm captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
             </div>
             )
 
@@ -60,14 +67,15 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      login: (email,password,rememberMe) => {
-          dispatch(login(email,password,rememberMe))
+      login: (email,password,rememberMe,captcha) => {
+          dispatch(login(email,password,rememberMe,captcha))
       }
   }
 };

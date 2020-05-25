@@ -5,7 +5,7 @@ export const Paginator = (props) => {
     let pagesCount = Math.ceil((props.totalUsersCount / props.pageSize));
 
     let pages = [];
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
     let partCount = Math.ceil((pagesCount / props.pageSize));

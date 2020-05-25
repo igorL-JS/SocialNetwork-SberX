@@ -5,7 +5,7 @@
 .pagination{
     display: inline-block;
     max-width: 1000px;
-    
+
 }
 
 .pagination a {
@@ -15,6 +15,7 @@
     font-weight: normal;
     float: left;
     padding: 8px 16px;
+    cursor: pointer;
 }
 
 .pagination a.selected {

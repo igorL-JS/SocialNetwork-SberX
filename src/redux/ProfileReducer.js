@@ -5,6 +5,8 @@ const UP_DATE_LIKE = "Up-date-like";
 const SET_USER_PROFILE = "Set-user-profile";
 const GET_STATUS = "Get-status";
 const DELETE_POST = "Delete-Post ";
+const SAVE_PHOTO_SUCCESS = "save-photo-success";
+const CHANGE_DATA_SUCCESS = "change-data-success";
 
 let initialState = {
     Posts: [
@@ -48,6 +50,12 @@ const profileReducer = (state = initialState, action) => {
             return { ...state, profile: action.profile};
         case GET_STATUS:
             return {... state, status: action.status};
+        case SAVE_PHOTO_SUCCESS:
+            return {... state, profile: {...state.profile, photos: action.photo} };
+
+
+        case CHANGE_DATA_SUCCESS :
+            return
         default :
             return state;
     }
@@ -82,6 +90,14 @@ export const getStatusAC = (status) => {
     return {type: GET_STATUS, status}
 };
 
+export const savePhotoSuccessAC = (photo) => {
+    return {type: SAVE_PHOTO_SUCCESS, photo}
+};
+
+export const changeDataSuccess = (data) => {
+    return {type: CHANGE_DATA_SUCCESS, data}
+};
+
 export const getPageProfile = (userID) => {
     return async dispatch => {
         let response = await ProfileAPI.getPageProfile(userID);
@@ -105,6 +121,28 @@ export const upDateStatusThunk = (status) => {
             dispatch(getStatusAC(status))
     }
 };
+
+export const savePhoto = (photo) => {
+    return async dispatch => {
+        let response = await ProfileAPI.savePhoto(photo);
+
+        if (response.resultCode === 0)
+            debugger;
+            dispatch(savePhotoSuccessAC(response.data.photos))
+    }
+};
+
+export const changeData =(profile) => async (dispatch, getState)=> {
+    const userID = getState().auth.id;
+    debugger
+        let response = await ProfileAPI.changeData(profile);
+    debugger;
+    if (response.resultCode === 0)
+        debugger;
+    dispatch(getPageProfile(userID))
+    };
+
+
 
 
 export default profileReducer;

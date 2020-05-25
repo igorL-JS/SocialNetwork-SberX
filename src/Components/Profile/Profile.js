@@ -10,7 +10,8 @@ const Profile = (props) => {
         <div className={p.content}>
 
             <img src="/shapka.jpg" width="1000" />
-            <ProfileInfo profile = {props.profile} status = {props.status} updatestatus = {props.updatestatus} />
+            <ProfileInfo profile = {props.profile} savePhoto = {props.savePhoto} isOwner ={props.isOwner} status = {props.status} updatestatus = {props.updatestatus}
+            changeData = {props.changeData}/>
             <MyPostsContainer store = {props.store} dispatch={props.dispatch} />
         </div>
     );
